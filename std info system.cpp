@@ -56,7 +56,7 @@ int main()
     			main();
    			}		
     		
-			else         //If records are present in array then it will show table.
+			else         //If records are present in array then it will show the table.
    			{ 
      			cout<<endl;
 			    cout<<"--------------------------------------------------------------------------------"<<endl;
@@ -115,7 +115,7 @@ int main()
 }
 
   
-void get_data(int i)        //Function for receiving data from user and populatiing the variables with values.
+void get_data(int i)        //Function for receiving data from user and storing in the variables with values.
 {   
 	cout<<"Enter student roll number in  format(1XXX): ";
   	cin>>rec[i].rollno;
@@ -184,7 +184,7 @@ void add_student()         //This function is used to add record of new student.
 
 void edit_student(int idnumber)     //function is used to edit existing record.
 {  
-	for(int i=0;i<=ts;i++)       //Loop is started.
+	for(int i=0;i<=ts;i++)       
  	{  
    		if(idnumber==i)       //Through loop every value is compared with search term.
   		{         
