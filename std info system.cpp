@@ -2,7 +2,6 @@
 #include <string>
 #include <conio.h>
 #include <stdlib.h>
-
 using namespace std;
 
 int main();
@@ -26,7 +25,6 @@ struct student
 };
 
 student rec[50];
-
 int main()
 {
 	int choice;
@@ -45,8 +43,13 @@ int main()
 	cin>>choice;
 	switch(choice)
  	{
-   		case 1:         //If user presses 1 then student adding module would be displayed.
-    		add_student();
+ 		case 1:
+ 			cout<<"Enter the Total Number of Student(s)";
+ 			cin>>ts;
+ 			while(ts--)
+	    		add_student();
+	    	main();
+	    	
     		break;
    		case 2:         //If there are no records in array then it will ask the user to input records first.
     		if(rec[0].rollno==0)
@@ -55,14 +58,13 @@ int main()
      			system("pause");
     			main();
    			}		
-    		
-			else         //If records are present in array then it will show the table.
+    		else         //If records are present in array then it will show the table.
    			{ 
      			cout<<endl;
 			    cout<<"--------------------------------------------------------------------------------"<<endl;
 			    cout<<"---------------------------Student record Table---------------------------------"<<endl;
 			    cout<<"--------------------------------------------------------------------------------"<<endl; 
-			    cout<<"ID   "<<"Roll   "<<"Name      "<<"Father\tCell no.      "<<"DOB          "<<"Address\n\n";
+			    cout<<"ID\t"<<"Roll\t"<<"Name\t"<<"Father\t"<<"Cell no.\t"<<"DOB\t"<<"CGPA\t"<<"address\n\n";
 			    cout<<"--------------------------------------------------------------------------------"<<endl; 
 
      			for(int i=0;i<=ts;i++)
@@ -84,7 +86,7 @@ int main()
           			edit_student(idnumber);    //Passing ID number to Edit Function.
        			}
    			}
-   			break;
+   				break;
    
 			case 3:
 			    if(rec[0].rollno==0)     //If no record exist then ask the user o enter records first.
@@ -117,7 +119,7 @@ int main()
   
 void get_data(int i)        //Function for receiving data from user and storing in the variables with values.
 {   
-	cout<<"Enter student roll number in  format(1XXX): ";
+	cout<<"Enter student roll number: ";
   	cin>>rec[i].rollno;
   	cout<<"Enter student name: ";
 	cin>>rec[i].name;
@@ -125,8 +127,20 @@ void get_data(int i)        //Function for receiving data from user and storing 
 	cin>>rec[i].fname;
 	cout<<"Enter student's cell phone number: ";
 	cin>>rec[i].cell;
+	if(rec[i].cell.length()!=10)
+	{
+		cout<<"Invalid Length";
+		exit(0);
+	}
 	cout<<"Enter student's Date of Birth(dd/mm/yyyy): ";
 	cin>>rec[i].dob;
+	cout<<"Enter the student's CGPA: ";
+	cin>>rec[i].cgpa;
+	if((rec[i].cgpa < 0) || (rec[i].cgpa>10))
+	{
+		cout<<"Invalid Value";
+		exit(0);
+	}
 	cout<<"Enter student's Address: ";
 	cin>>rec[i].address;
 }
@@ -135,12 +149,13 @@ void show_data(int searchkey)      //Function for showing data on the screen.
 {    
 	int i=searchkey;
 	cout<<i<<"    ";
-	cout<<rec[i].rollno<<"   ";
-	cout<<rec[i].name<<"    ";
-	cout<<rec[i].fname<<"    ";
-	cout<<rec[i].cell<<"     ";
-	cout<<rec[i].dob<<"      ";
-	cout<<rec[i].address<<"    \n\n";
+	cout<<rec[i].rollno<<"\t";
+	cout<<rec[i].name<<"\t";
+	cout<<rec[i].fname<<"\t";
+	cout<<rec[i].cell<<"\t";
+	cout<<rec[i].dob<<"\t";
+	cout<<rec[i].cgpa<<"\t";
+	cout<<rec[i].address<<"\n\n";
 }
 
 void search_student(int searchkey)
@@ -149,8 +164,9 @@ void search_student(int searchkey)
  	{ 
    		if(rec[i].rollno==searchkey)    //If roll number matches to search term.
   		{		   
-    		cout<<"ID   "<<"Roll   "<<"Name      "<<"Father\tCell no.      "<<"DOB          "<<"\t\tAddress\n\n";
+    		cout<<"ID\t"<<"Roll\t"<<"Name\t"<<"Father\t"<<"Cell no.\t"<<"DOB\t"<<"CGPA\t"<<"Address\n\n";
     		show_data(i);       //A function is used inside another function.
+    		system("pause");
    		}
   	}	 
 }
@@ -161,13 +177,12 @@ void add_student()         //This function is used to add record of new student.
  	{
     	get_data(i);          //Loop was processed 5 times to get input for 5 students.
   	}
-  	
   	system("CLS");
   	cout<<endl;
   	cout<<"--------------------------------------------------------------------------------"<<endl;
   	cout<<"---------------------------Student record Table---------------------------------"<<endl;
   	cout<<"--------------------------------------------------------------------------------"<<endl;
-  	cout<<"ID   "<<"Roll   "<<"Name      "<<"Father\tCell no.      "<<"DOB          "<<"Address\n\n";
+  	cout<<"ID\t"<<"Roll\t"<<"Name\t"<<"Father\t"<<"Cell no.\t"<<"DOB\t"<<"CGPA\t"<<"Address\n\n";
   	cout<<"--------------------------------------------------------------------------------"<<endl;
 
   	for(int i=0;i<=ts;i++)
@@ -190,7 +205,7 @@ void edit_student(int idnumber)     //function is used to edit existing record.
   		{         
     		cout<<"\nExisted information about this record.\n\n";
 		    cout<<"--------------------------------------------------------------------------------"<<endl;
-		    cout<<"ID   "<<"Roll   "<<"Name      "<<"Father\tCell no.      "<<"DOB          "<<"Address\n\n";
+		    cout<<"ID\t"<<"Roll\t"<<"Name\t"<<"Father\t"<<"Cell no.\t"<<"DOB\t"<<"CGPA\t""Address\n\n";
 		    cout<<"--------------------------------------------------------------------------------"<<endl;
 		    show_data(i);       //Load information for existing record.
 		    cout<<"\n\nEnter new data for above shown record.\n\n";
